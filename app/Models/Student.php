@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
+
+    use HasFactory;
+
     protected $table = 'students';
 
     /**
@@ -17,7 +21,7 @@ class Student extends Model
      * @property string $address
      * @property string $date_of_birth
      * @property string $gender
-     * 
+     * @property string $status
      */
 
     protected $fillable = [
@@ -28,6 +32,18 @@ class Student extends Model
         'phone',
         'address',
         'date_of_birth',
-        'gender'
+        'gender',
+        'status',
     ];
+
+    public function enrollements ()
+    {
+        return $this->hasMany(Enrollment::class,'student_id', 'id');
+    }
+
+    public function attendances ()
+    {
+        return $this->hasMany(Attendance::class,'student_id', 'id');
+    }
+
 }
